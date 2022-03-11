@@ -30,8 +30,22 @@ public class LoginTests extends BaseTest{
         mantisSite = new MantisSite(driver);
         mantisSite.login("admin", "admin20");
 
+
         String currentUserName = mantisSite.getMainPage().getUserName();
         Assertions.assertEquals("admin", currentUserName);
         Thread.sleep(1000);
+    }
+
+    @Test
+    public void checkMainPageBlocksLoading(){
+        mantisSite = new MantisSite(driver);
+        mantisSite.login("admin", "admin20");
+
+        Assertions.assertTrue(mantisSite.getMainPage().isAssignedToMeBlockDisplayed());
+        Assertions.assertTrue(mantisSite.getMainPage().isUnassignedBlockDisplayed());
+
+        Assertions.assertTrue(mantisSite.getMainPage().getTitleAssignedBlock().contains("Assigned to Me"));
+
+
     }
 }
